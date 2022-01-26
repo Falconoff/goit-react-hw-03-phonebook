@@ -1,4 +1,5 @@
 import { Component } from 'react';
+
 import { FormTag, InputField, FormBtn } from './Form.styled';
 
 export default class Form extends Component {

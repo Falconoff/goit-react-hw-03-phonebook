@@ -12,12 +12,7 @@ const LS_KEY = 'contacts';
 
 class App extends Component {
   state = {
-    contacts: [
-      // { id: '111', name: 'Michael Jackson', number: '111-11-11' },
-      // { id: '222', name: 'Bob Marley', number: '222-22-22' },
-      // { id: '333', name: 'Tina Turner', number: '333-33-33' },
-      // { id: '444', name: 'ssv', number: '444-33-33' },
-    ],
+    contacts: [],
     filter: '',
   };
 
@@ -30,7 +25,6 @@ class App extends Component {
     );
 
     if (isFoundName) {
-      // alert(`${data.name} is already in contacts.`);
       toast.error(`${data.name} is already in contacts!`);
       return;
     }
@@ -57,13 +51,9 @@ class App extends Component {
 
   // Кол-во записей в Телефонной книге изменилось!!!
   componentDidUpdate(prevProps, prevState) {
-    // console.log('======= componentDidUpdate !!! ========');
     if (prevState.contacts.length !== this.state.contacts.length) {
-      // console.log(
-      //   `Кол-во записей в state Телефонной книги изменилось!!! Было ${prevState.contacts.length}, стало ${this.state.contacts.length}`,
-      // );
       localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts));
-      // console.log('осталось', this.state.contacts.length);
+
       if (this.state.contacts.length === 0) {
         toast.error('Phonebook is empty!');
       }
@@ -72,31 +62,18 @@ class App extends Component {
 
   // Первый рендер Phonebook
   componentDidMount() {
-    // console.log('======= componentDidMount!!! =======');
     const contacts = localStorage.getItem(LS_KEY);
     const parsedContacts = JSON.parse(contacts);
-    // console.log('contacts from localStorage:', contacts);
-    // console.log('parsed contacts from localStorage:', parsedContacts);
 
     // если есть в локальном хранилище записи, записываем их в стейт
     if (parsedContacts) {
       this.setState({ contacts: parsedContacts });
-      //   console.log(
-      //     'Записи в localStorage есть)) number of parsed contacts from localStorage:',
-      //     parsedContacts.length,
-      //   );
-      // } else {
-      //   toast.error('Записей в localStorage нет', {
-      //     position: 'bottom-center',
-      //   });
-      //   console.log('Записей в localStorage нет ((');
     }
   }
 
   render() {
     // for filter
     const { filter, contacts } = this.state;
-    // console.log('contacts in render() from localStorage:', contacts.length);
     const normalizedFilter = filter.toLowerCase();
     const filteredContacts = contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter),

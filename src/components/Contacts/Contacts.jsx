@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import {
   ContactsList,
   ContactsListItem,
@@ -24,4 +25,5 @@ export default function Contacts({ arr, onDelContact }) {
 
 Contacts.propTypes = {
   arr: PropTypes.array.isRequired,
+  onDelContact: PropTypes.func,
 };
